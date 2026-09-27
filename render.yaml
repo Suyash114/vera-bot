@@ -2,7 +2,7 @@ services:
   - type: web
     name: vera-bot
     runtime: docker
-    plan: starter            # not "free": free instances sleep when idle and the judge disqualifies after 3 failed healthz checks
+    plan: free            # free plan on Render
     numInstances: 1          # state is in memory — never scale out
     healthCheckPath: /v1/healthz
     envVars:
