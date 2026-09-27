@@ -74,7 +74,7 @@ def _metadata(llm) -> dict:
 
 
 def create_app(llm=_UNSET, playground: bool | None = None) -> FastAPI:
-    app = FastAPI(title="Vera bot", version=VERSION, docs_url=None, redoc_url=None, openapi_url=None)
+    app = FastAPI(title="Vera bot", version=VERSION, docs_url="/docs", redoc_url="/redoc", openapi_url="/openapi.json")
     store = Store()
     started = time.time()
     model = llm_mod.from_env() if llm is _UNSET else llm
