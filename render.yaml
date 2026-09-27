@@ -12,6 +12,8 @@ services:
         value: https://generativelanguage.googleapis.com/v1beta/openai
       - key: LLM_MODEL
         value: gemini-2.5-flash
+      - key: PLAYGROUND
+        value: "true"
       - key: LLM_API_KEY
         sync: false          # set in the Render dashboard; never commit it
       - key: TEAM_NAME
