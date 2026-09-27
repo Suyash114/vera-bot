@@ -3,8 +3,8 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY bot/ bot/
 COPY dataset/ dataset/
+COPY bot/ bot/
 RUN python dataset/generate_dataset.py --seed-dir dataset --out expanded
 EXPOSE 8080
 # Exactly one worker: contexts, suppression keys and conversations live in process memory.
