@@ -128,7 +128,7 @@ def create_app(llm=_UNSET, playground: bool | None = None) -> FastAPI:
         store.reset()
         return {"status": "wiped"}
 
-    if playground if playground is not None else os.getenv("PLAYGROUND", "").lower() in ("1", "true", "yes"):
+    if playground if playground is not None else os.getenv("PLAYGROUND", "true").lower() in ("1", "true", "yes"):
         from .playground import make_router, security_headers
         app.include_router(make_router(store, model))
         app.middleware("http")(security_headers)
