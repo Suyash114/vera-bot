@@ -127,11 +127,10 @@ def from_env():
     key = os.getenv("LLM_API_KEY") or (os.getenv(vendor_key) if vendor_key else None)
     if provider not in _PROVIDERS:
         raise LLMConfigError(f"Unknown LLM_PROVIDER {provider!r}; expected one of {', '.join(_PROVIDERS)}")
-    if provider == "none":
+
+    if provider == "none" or not key:
         return NullLLM()
-    if not key:
-        hint = f"LLM_API_KEY or {vendor_key}" if vendor_key else "LLM_API_KEY"
-        raise LLMConfigError(f"LLM_PROVIDER={provider} is set but {hint} is missing")
+
     if provider == "anthropic":
         return AnthropicLLM(key, model or "claude-opus-5", base_url=base)
     return OpenAICompatLLM(key, model or "gpt-4o", base or "https://api.openai.com/v1")
