@@ -82,6 +82,10 @@ def _writer_from(rationale: str) -> str:
 
 def make_router(store: Store, llm) -> APIRouter:
     router = APIRouter()
+    try:
+        load_dataset(store)
+    except Exception:
+        pass
     api_limit, reset_limit = RateLimiter(120, 10), RateLimiter(5, 10)
 
     def limited(limiter: RateLimiter):
