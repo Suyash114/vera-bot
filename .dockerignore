@@ -1,0 +1,13 @@
+.venv
+.git
+.slash-cli
+.pytest_cache
+__pycache__
+expanded
+dataset
+examples
+tests
+scripts
+*.md
+*.zip
+judge_simulator.py

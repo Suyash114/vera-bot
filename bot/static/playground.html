@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vera Playground</title>
+  <link rel="stylesheet" href="/playground/static/playground.css">
+  <script src="/playground/static/playground.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">V</span>
+      <div class="brand-text">
+        <span class="brand-title">Vera Playground</span>
+        <span class="brand-sub">Merchant engagement bot</span>
+      </div>
+    </div>
+    <div class="topbar-status" aria-live="polite">
+      <span class="pill" id="mode-pill">Connecting…</span>
+      <span class="pill pill-quiet" id="counts-pill"></span>
+    </div>
+    <div class="topbar-actions">
+      <label class="date-field">
+        <span>Simulated date</span>
+        <input type="date" id="sim-date" value="2026-04-26">
+      </label>
+      <button class="btn btn-ghost" id="reset-btn" type="button" title="Clear all conversations and reload the dataset">Reset</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar" aria-label="Merchants">
+      <div class="sidebar-head">
+        <label class="search">
+          <span class="visually-hidden">Search merchants</span>
+          <input type="search" id="search" placeholder="Search merchants, cities…" autocomplete="off">
+          <kbd>/</kbd>
+        </label>
+        <div class="chips" id="category-chips" role="tablist" aria-label="Filter by category"></div>
+      </div>
+      <ul class="merchant-list" id="merchant-list"></ul>
+      <p class="sidebar-foot" id="merchant-count"></p>
+    </aside>
+
+    <section class="workspace" aria-label="Conversation">
+      <div class="empty" id="empty-state">
+        <div class="empty-mark" aria-hidden="true">V</div>
+        <h1>Pick a merchant to begin</h1>
+        <p>Choose a merchant on the left, then send one of their triggers. Vera composes the message from the
+          merchant's data, and you can reply as the merchant or customer to test the conversation.</p>
+      </div>
+
+      <div class="merchant-view" id="merchant-view" hidden>
+        <div class="merchant-card">
+          <span class="avatar" id="m-avatar" aria-hidden="true"></span>
+          <div class="merchant-meta">
+            <h1 id="m-name"></h1>
+            <p id="m-sub"></p>
+          </div>
+        </div>
+
+        <div class="triggers-block">
+          <div class="section-head">
+            <h2>Triggers</h2>
+            <span class="hint">Why Vera would message now</span>
+          </div>
+          <ul class="trigger-list" id="trigger-list"></ul>
+        </div>
+
+        <div class="thread-block">
+          <div class="thread-head">
+            <div>
+              <h2 id="thread-title">Conversation</h2>
+              <p class="hint" id="thread-sub">Send a trigger to start a conversation.</p>
+            </div>
+            <span class="pill pill-quiet" id="thread-state" hidden></span>
+          </div>
+          <ol class="thread" id="thread" aria-live="polite"></ol>
+          <div class="composer" id="composer">
+            <div class="quick" id="quick-replies" aria-label="Quick replies"></div>
+            <form class="composer-row" id="composer-form">
+              <label class="visually-hidden" for="composer-input">Reply</label>
+              <input id="composer-input" type="text" placeholder="Reply as the merchant…" autocomplete="off" disabled>
+              <button class="btn btn-primary" id="composer-send" type="submit" disabled>Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="inspector" aria-label="Why this message">
+      <div class="inspector-empty" id="inspector-empty">
+        <h2>Why this message</h2>
+        <p>After Vera sends something, this panel shows the decision behind it: who it's from, the call to action,
+          the angle, and exactly which facts it used and where each one came from.</p>
+      </div>
+      <div id="inspector" hidden>
+        <section class="panel">
+          <h2>Decision</h2>
+          <dl class="kv" id="decision"></dl>
+        </section>
+        <section class="panel" id="reply-panel" hidden>
+          <h2>Last reply</h2>
+          <dl class="kv" id="reply-decision"></dl>
+        </section>
+        <section class="panel">
+          <h2>Facts used <span class="count" id="used-count"></span></h2>
+          <ul class="facts" id="facts-used"></ul>
+        </section>
+        <section class="panel">
+          <details>
+            <summary>Other facts available <span class="count" id="other-count"></span></summary>
+            <ul class="facts facts-muted" id="facts-other"></ul>
+          </details>
+        </section>
+        <section class="panel">
+          <h2>Rationale</h2>
+          <p class="rationale" id="rationale"></p>
+        </section>
+      </div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

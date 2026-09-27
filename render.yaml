@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: vera-bot
+    runtime: docker
+    plan: starter            # not "free": free instances sleep when idle and the judge disqualifies after 3 failed healthz checks
+    numInstances: 1          # state is in memory — never scale out
+    healthCheckPath: /v1/healthz
+    envVars:
+      - key: LLM_PROVIDER
+        value: anthropic
+      - key: LLM_API_KEY
+        sync: false          # set in the Render dashboard; never commit it
+      - key: LLM_MODEL
+        value: claude-opus-5
+      - key: TEAM_NAME
+        sync: false
+      - key: TEAM_MEMBERS
+        sync: false
+      - key: CONTACT_EMAIL
+        sync: false
